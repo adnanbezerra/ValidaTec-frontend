@@ -1,32 +1,33 @@
 import styled from "styled-components";
 
-const Search = styled.div`
-    display: flex;
-    flex-direction: column;    
-`
-
-const SearchResultsContainer = styled.div`
-    display: flex;
-
-`
-
-const UserPicture = styled.img`
-    width: 80px !important;
-    height: 80px;
+const SideMenuContainer = styled.div`
+    background-color: #01aff0;
     border-radius: 50%;
-    border: 0;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `
 
-const SearchResultContainer = styled.div``
+const SearchContainer = styled.div`
+    width: 300px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    border: 1px solid #b3b3b3;
+    padding: 0 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+`
 
 const SearchInput = styled.input`
-    width: 250px;
+    width: 220px;
     height: 50px;
-    padding-left: 20px;
-    box-sizing: border-box;
-    border-radius: 10px;
-    border: 1px solid #b3b3b3;
+    border: 0;
+    outline: none;
 `
 
 const Container = styled.header`
@@ -46,4 +47,4 @@ const Container = styled.header`
     }
 `
 
-export {Container, SearchInput, Search, SearchResultsContainer, SearchResultContainer, UserPicture};
+export {Container, SearchInput, SearchContainer, SideMenuContainer};
