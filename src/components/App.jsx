@@ -6,6 +6,7 @@ import UserContext from './contexts/UserContext';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
+import UserScreen from './pages/User/UserScreen';
 
 function App() {
   const [user, setUser] = useState({});
@@ -21,6 +22,7 @@ function App() {
             <Route path={'/'} element={<Home />} />
             <Route path={'/login'} element={<Login />} />
             <Route path={'/register'} element={<Register />} />
+            <Route path={'/user'} element={<UserScreen />} />
           </Routes>
         </BrowserRouter >
       </UserContext.Provider>

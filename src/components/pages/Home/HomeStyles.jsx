@@ -7,7 +7,7 @@ const Container = styled.div`
     justify-content: center;
     margin-top: 20px;
     z-index: 0;
-    position: 
+    position: relative;
 `
 
 export { Container };
