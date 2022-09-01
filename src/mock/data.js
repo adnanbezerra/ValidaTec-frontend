@@ -1,4 +1,4 @@
-const BASE_URL = 'https://freestore-project.herokuapp.com'
+const BASE_URL = 'http://localhost:5000'
 
 function config(token, refresh) {
     return {

@@ -21,6 +21,11 @@ const LoginInput = styled.input`
     margin-bottom: 20px;
 `
 
+export const Redirect = styled.p`
+    margin-top: 35px;
+    font-size: 20px;
+`
+
 const LoginButton = styled.button`
     background-color: ${props => props.disabled ? "#514edb" : "#0b088f"};
     border-radius: 5px;
@@ -57,7 +62,7 @@ const LoginForm = styled.form`
     align-items: center;
     justify-content: center;
 
-    padding: 60px 30px;
+    padding: 50px 30px;
     box-sizing: border-box;
 
     img{

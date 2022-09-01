@@ -7,6 +7,11 @@ const Label = styled.p`
     font-size: 20px;
 `
 
+export const Redirect = styled.p`
+    margin-top: 35px;
+    font-size: 20px;
+`
+
 const LoginInput = styled.input`
     border-radius: 5px;
     border: 1px solid #b3b3b3;
@@ -56,7 +61,7 @@ const LoginForm = styled.form`
     align-items: center;
     justify-content: center;
 
-    padding: 60px 30px;
+    padding: 50px 30px;
     box-sizing: border-box;
 
     img{

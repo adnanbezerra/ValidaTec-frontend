@@ -1,10 +1,10 @@
-import { Container, FacaLogin, Label, LoginButton, LoginForm, LoginInput } from "./LoginStyle";
+import { Container, FacaLogin, Label, LoginButton, LoginForm, LoginInput, Redirect } from "./LoginStyle";
 import logo from "../../../assets/images/Logo_nitt_Entregaveis-04.png";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../../mock/data";
 import UserContext from "../../contexts/UserContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
 
@@ -13,17 +13,31 @@ export default function Login() {
     const { setUser } = useContext(UserContext);
     const navigate = useNavigate();
 
+    useEffect(() => {
+        const userFromStorage = localStorage.getItem('user');
+        if (userFromStorage) {
+            setUser(JSON.parse(userFromStorage));
+            navigate('/');
+        }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
     function submitForm(event) {
         event.preventDefault();
 
         const loginInfo = { email, password }
 
-        axios.post(`${BASE_URL}/login`, loginInfo)
+        axios.post(`${BASE_URL}/signin`, loginInfo)
             .then(response => {
                 setUser(response.data);
+                localStorage.setItem('user', JSON.stringify(response.data));
                 navigate('/');
             })
-            .catch(error => console.error(error))
+            .catch(error => {
+                alert("Erro no login! Tente novamente ou contate o administrador.")
+                console.error(error)
+            });
     }
 
     return (
@@ -37,8 +51,10 @@ export default function Login() {
 
                 <Label>Sua senha</Label>
                 <LoginInput placeholder="Senha" type="password" value={password} onChange={e => setPassword(e.target.value)} />
-                
+
                 <LoginButton>Fazer login</LoginButton>
+
+                <Redirect><Link to={'/register'} style={{ textDecoration: 'none', color: '#0b088f' }}>Não tem uma conta? Crie já!</Link></Redirect>
             </LoginForm>
         </Container>
     )

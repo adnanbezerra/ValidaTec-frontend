@@ -1,9 +1,10 @@
-import { Container, FacaLogin, Label, LoginButton, LoginForm, LoginInput } from "./RegisterStyle";
+import { Container, FacaLogin, Label, LoginButton, LoginForm, LoginInput, Redirect } from "./RegisterStyle";
 import logo from "../../../assets/images/Logo_nitt_Entregaveis-04.png";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../../mock/data";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import UserContext from "../../contexts/UserContext";
 
 export default function Register() {
 
@@ -14,17 +15,32 @@ export default function Register() {
     const navigate = useNavigate();
     const [disable, setDisable] = useState(false);
 
+    const { setUser } = useContext(UserContext);
+
+    useEffect(() => {
+        const userFromStorage = localStorage.getItem('user');
+        if (userFromStorage) {
+            setUser(JSON.parse(userFromStorage));
+            navigate('/');
+        }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
     function submitForm(event) {
         event.preventDefault();
 
-        const registerInfo = { email, password }
+        const registerInfo = { name: userName, email, password }
 
-        axios.post(`${BASE_URL}/register`, registerInfo)
+        axios.post(`${BASE_URL}/signup`, registerInfo)
             .then(response => {
                 alert("Cadastro feito com sucesso!");
                 navigate('/login');
             })
-            .catch(error => console.error(error))
+            .catch(error => {
+                alert("Erro no cadastro! Tente novamente ou contate o administrador.")
+                console.error(error)
+            })
     }
 
     useEffect(() => {
@@ -50,8 +66,10 @@ export default function Register() {
 
                 <Label>Confirmar senha</Label>
                 <LoginInput placeholder="Confirmar senha" type="password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} />
-                
+
                 {getButton()}
+
+                <Redirect><Link to={'/register'} style={{ textDecoration: 'none', color: '#0b088f' }}>Não tem uma conta? Crie já!</Link></Redirect>
             </LoginForm>
         </Container>
     )

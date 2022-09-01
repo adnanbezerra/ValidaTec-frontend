@@ -1,14 +1,16 @@
 import styled from "styled-components";
 
 const SideMenuContainer = styled.div`
-    background-color: #01aff0;
     border-radius: 50%;
-    width: 45px;
-    height: 45px;
+    width: 45px !important;
+    height: 45px !important;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+    &:hover {
+        cursor: pointer;
+    }
 `
 
 const SearchContainer = styled.div`
@@ -34,12 +36,15 @@ const Container = styled.header`
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-around;
-    height: 100px;
+    justify-content: space-between;
+    height: 80px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     position: sticky;
     top: 0;
     z-index: 2;
+
+    padding: 0 20px;
+    box-sizing: border-box;
 
     img {
         width: 200px;

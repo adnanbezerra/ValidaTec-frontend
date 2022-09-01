@@ -1,15 +1,16 @@
 import { NavbarContainer, NavbarHeader, UserNameSpan } from "./SideMenuStyle";
 import { IoMdClose } from 'react-icons/io';
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import UserContext from "../../contexts/UserContext";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
 export default function Navbar({ displaySideMenu, setDisplaySideMenu }) {
 
-    // const { user } = useContext(UserContext);
-    const [user] = useState({ token: "adnan", name: "acdnan" });
+    const { user } = useContext(UserContext);
     const verifyUser = user.token !== undefined;
+
+    console.log(user);
 
     return (
         <NavbarContainer display={displaySideMenu}>
