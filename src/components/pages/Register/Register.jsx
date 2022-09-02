@@ -35,7 +35,7 @@ export default function Register() {
         axios.post(`${BASE_URL}/signup`, registerInfo)
             .then(response => {
                 alert("Cadastro feito com sucesso!");
-                navigate('/login');
+                navigate('/login', { replace: true });
             })
             .catch(error => {
                 alert("Erro no cadastro! Tente novamente ou contate o administrador.")

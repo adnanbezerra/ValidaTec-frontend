@@ -17,7 +17,7 @@ export default function Login() {
         const userFromStorage = localStorage.getItem('user');
         if (userFromStorage) {
             setUser(JSON.parse(userFromStorage));
-            navigate('/');
+            navigate('/', { replace: true });
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps

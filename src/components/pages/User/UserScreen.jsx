@@ -1,12 +1,14 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../../mock/data";
+import UserContext from "../../contexts/UserContext";
 import Header from "../../templates/Header/Header";
 import { Container, EditButton, EditName, Form, UserName, UserTitle } from "./UserScreenStyles";
 
 export default function UserScreen() {
-    const user = { name: 'Adena', email: 'adnan@google.com' }
+    const { user, setUser } = useContext(UserContext);
     const [password, setPassword] = useState("");
     const [disableButton, setDisableButton] = useState(false);
 
@@ -14,6 +16,18 @@ export default function UserScreen() {
     const [email, setEmail] = useState("");
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const userFromStorage = localStorage.getItem('user');
+        if (userFromStorage) {
+            setUser(JSON.parse(userFromStorage));
+            navigate('/user', { replace: true });
+        } else {
+            navigate('/login', { replace: true });
+        }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     function submitForm(event) {
         event.preventDefault();

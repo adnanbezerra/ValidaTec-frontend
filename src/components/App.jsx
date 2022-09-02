@@ -6,6 +6,7 @@ import UserContext from './contexts/UserContext';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
+import CreateProject from './pages/RegisterProject/CreateProject';
 import UserScreen from './pages/User/UserScreen';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
             <Route path={'/login'} element={<Login />} />
             <Route path={'/register'} element={<Register />} />
             <Route path={'/user'} element={<UserScreen />} />
+            <Route path={'/register-project'} element={<CreateProject />} />
           </Routes>
         </BrowserRouter >
       </UserContext.Provider>

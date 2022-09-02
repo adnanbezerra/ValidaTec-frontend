@@ -6,11 +6,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 export default function Navbar({ displaySideMenu, setDisplaySideMenu }) {
-
-    const { user } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
     const verifyUser = user.token !== undefined;
-
-    console.log(user);
 
     return (
         <NavbarContainer display={displaySideMenu}>
@@ -23,12 +20,20 @@ export default function Navbar({ displaySideMenu, setDisplaySideMenu }) {
             {verifyUser ? <Link to={'/user'} style={{ textDecoration: 'none', color: '#fff', marginTop: '10px' }}>Seu perfil</Link> : ""}
             {verifyUser ? <Link to={'/projects'} style={{ textDecoration: 'none', color: '#fff', marginTop: '10px' }}>Seus projetos</Link> : ""}
             {verifyUser ? <Link to={'/register-project'} style={{ textDecoration: 'none', color: '#fff', marginTop: '10px' }}>Cadastrar novo projeto</Link> : ""}
-            {verifyUser ? <div onClick={logoff} style={{ textDecoration: 'none', color: '#fff', marginTop: '10px' }}>Logoff</div> : ""}
+            {verifyUser ? <Link to={'/login'} style={{ textDecoration: 'none', color: '#fff', marginTop: '10px' }}><div onClick={logoff}>Logoff</div></Link> : ""}
         </NavbarContainer>
     )
 
     function logoff() {
-        axios.post('/logoff', verifyUser ? user.token : "");
+        axios.post('/logoff', verifyUser ? user.token : "")
+            .then(response => {
+                localStorage.removeItem('user');
+                setUser({});
+
+            }).catch(error => {
+                console.error(error);
+                alert("Falha ao fazer logoff! Contate o administrador.")
+            });
     }
 
     function getUsername() {
