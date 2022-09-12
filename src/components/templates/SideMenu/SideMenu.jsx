@@ -18,7 +18,7 @@ export default function Navbar({ displaySideMenu, setDisplaySideMenu }) {
             {verifyUser ? "" : <Link to={'/login'} style={{ textDecoration: 'none', color: '#fff', marginTop: '30px' }}>Fazer login</Link>}
             {verifyUser ? "" : <Link to={'/register'} style={{ textDecoration: 'none', color: '#fff', marginTop: '10px' }}>Cadastrar-se</Link>}
             {verifyUser ? <Link to={'/user'} style={{ textDecoration: 'none', color: '#fff', marginTop: '10px' }}>Seu perfil</Link> : ""}
-            {verifyUser ? <Link to={'/projects'} style={{ textDecoration: 'none', color: '#fff', marginTop: '10px' }}>Seus projetos</Link> : ""}
+            {verifyUser ? <Link to={'/my-projects'} style={{ textDecoration: 'none', color: '#fff', marginTop: '10px' }}>Seus projetos</Link> : ""}
             {verifyUser ? <Link to={'/register-project'} style={{ textDecoration: 'none', color: '#fff', marginTop: '10px' }}>Cadastrar novo projeto</Link> : ""}
             {verifyUser ? <Link to={'/login'} style={{ textDecoration: 'none', color: '#fff', marginTop: '10px' }}><div onClick={logoff}>Logoff</div></Link> : ""}
         </NavbarContainer>
