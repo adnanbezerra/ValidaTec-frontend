@@ -40,10 +40,6 @@ export const ProjectContainer = styled.div`
     width: 200px;
     height: fit-content;
   }
-
-  :hover {
-    cursor: pointer;
-  }
 `;
 
 export const ProjectTitle = styled.p`
@@ -70,4 +66,8 @@ export const ProjectButton = styled.button`
   width: 12rem;
   margin-top: 8rem;
   color: #ffffff;
+
+  :hover {
+    cursor: pointer;
+  }
 `;

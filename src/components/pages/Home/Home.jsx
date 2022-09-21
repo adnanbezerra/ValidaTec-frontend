@@ -50,19 +50,28 @@ export default function Home() {
 
   const images = [
     {
-      image:
+      id: 3,
+      name: "Como assim mano slk",
+      creators: "Adena, Lele",
+      description: "Esse é um projeot muito legal pq sim",
+      projectPicture:
         "https://epipoca.com.br/wp-content/uploads/2022/04/luffy-one-piece-1015.jpg",
-      title: "Nome do Projeto",
     },
     {
-      image:
+      id: 4,
+      name: "Como assim mano slk",
+      creators: "Adena, Lele",
+      description: "Esse é um projeot muito legal pq sim",
+      projectPicture:
         "https://epipoca.com.br/wp-content/uploads/2022/04/luffy-one-piece-1015.jpg",
-      title: "Nome do Projeto",
     },
     {
-      image:
+      id: 5,
+      name: "Como assim mano slk",
+      creators: "Adena, Lele",
+      description: "Esse é um projeot muito legal pq sim",
+      projectPicture:
         "https://epipoca.com.br/wp-content/uploads/2022/04/luffy-one-piece-1015.jpg",
-      title: "Nome do Projeto",
     },
   ];
 
@@ -76,10 +85,7 @@ export default function Home() {
 
   function getProjectCard(project, index) {
     return (
-      <ProjectContainer
-        onClick={() => navigate(`/project/${project.id}`)}
-        key={index}
-      >
+      <ProjectContainer key={index}>
         <img src={project.projectPicture} alt="" />
         <div
           style={{
@@ -91,7 +97,9 @@ export default function Home() {
           <ProjectTitle>{project.name}</ProjectTitle>
           <ProjectCreators>Criadores: {project.creators}</ProjectCreators>
           <ProjectDescription>{project.description}</ProjectDescription>
-          <ProjectButton>Clique aqui para saber mais</ProjectButton>
+          <ProjectButton onClick={() => navigate(`/project/${project.id}`)}>
+            Clique aqui para saber mais
+          </ProjectButton>
         </div>
       </ProjectContainer>
     );
@@ -110,7 +118,11 @@ export default function Home() {
           showThumbs={false}
         >
           {images.map((project, index) => (
-            <ProjectsCarousel project={project} key={index} />
+            <ProjectsCarousel
+              project={project}
+              key={index}
+              onClick={() => navigate(`/project/${project.id}`)}
+            />
           ))}
         </Carousel>
         <h2>Projetos Recentes</h2>
