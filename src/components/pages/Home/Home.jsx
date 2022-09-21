@@ -8,6 +8,7 @@ import { Container } from "./HomeStyles";
 import ProjectsCarousel from "./ProjectsCarousel";
 import {
   NoProjectsText,
+  ProjectButton,
   ProjectContainer,
   ProjectCreators,
   ProjectDescription,
@@ -69,13 +70,16 @@ export default function Home() {
     return myProjects.length === 0 ? (
       <NoProjectsText>Sem projetos registrados ainda</NoProjectsText>
     ) : (
-      myProjects.map((project) => getProjectCard(project))
+      myProjects.map((project, index) => getProjectCard(project, index))
     );
   }
 
-  function getProjectCard(project) {
+  function getProjectCard(project, index) {
     return (
-      <ProjectContainer onClick={() => navigate(`/project/${project.id}`)}>
+      <ProjectContainer
+        onClick={() => navigate(`/project/${project.id}`)}
+        key={index}
+      >
         <img src={project.projectPicture} alt="" />
         <div
           style={{
@@ -87,6 +91,7 @@ export default function Home() {
           <ProjectTitle>{project.name}</ProjectTitle>
           <ProjectCreators>Criadores: {project.creators}</ProjectCreators>
           <ProjectDescription>{project.description}</ProjectDescription>
+          <ProjectButton>Clique aqui para saber mais</ProjectButton>
         </div>
       </ProjectContainer>
     );
@@ -104,8 +109,8 @@ export default function Home() {
           showStatus={false}
           showThumbs={false}
         >
-          {images.map((project) => (
-            <ProjectsCarousel project={project} />
+          {images.map((project, index) => (
+            <ProjectsCarousel project={project} key={index} />
           ))}
         </Carousel>
         <h2>Projetos Recentes</h2>
