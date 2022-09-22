@@ -8,12 +8,12 @@ import { Container } from "./HomeStyles";
 import ProjectsCarousel from "./ProjectsCarousel";
 import {
   NoProjectsText,
-  ProjectButton,
   ProjectContainer,
   ProjectCreators,
   ProjectDescription,
   ProjectTitle,
 } from "../MyProjectsPage/MyProjectsStyles";
+import Button from "../../templates/Button/Button";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -97,9 +97,9 @@ export default function Home() {
           <ProjectTitle>{project.name}</ProjectTitle>
           <ProjectCreators>Criadores: {project.creators}</ProjectCreators>
           <ProjectDescription>{project.description}</ProjectDescription>
-          <ProjectButton onClick={() => navigate(`/project/${project.id}`)}>
+          <Button onClick={() => navigate(`/project/${project.id}`)}>
             Clique aqui para saber mais
-          </ProjectButton>
+          </Button>
         </div>
       </ProjectContainer>
     );

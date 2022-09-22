@@ -12,8 +12,8 @@ import {
   ProjectCreators,
   ProjectDescription,
   ProjectTitle,
-  ProjectButton,
 } from "./MyProjectsStyles";
+import Button from "../../templates/Button/Button";
 
 export default function MyProjectPage() {
   const { user, setUser } = useContext(UserContext);
@@ -85,7 +85,7 @@ export default function MyProjectPage() {
           <ProjectTitle>{project.name}</ProjectTitle>
           <ProjectCreators>Criadores: {project.creators}</ProjectCreators>
           <ProjectDescription>{project.description}</ProjectDescription>
-          <ProjectButton>Clique aqui para saber mais</ProjectButton>
+          <Button>Clique aqui para saber mais</Button>
         </div>
       </ProjectContainer>
     );
