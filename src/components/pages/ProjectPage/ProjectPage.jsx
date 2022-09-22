@@ -1,6 +1,5 @@
 import Header from "../../templates/Header/Header";
 import {
-  ButtonContainer,
   Container,
   Creator,
   Description,
@@ -9,11 +8,12 @@ import {
   Score,
   Title,
 } from "./PojectPageStyles";
-import Button from "../../templates/Button/Button";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useContext } from "react";
+import UserContext from "../../contexts/UserContext";
+import Evaluate from "./Evaluate";
 
 export default function ProjectPage() {
-  const navigate = useNavigate();
+  const { user, setUser } = useContext(UserContext);
   const project = {
     id: 3,
     name: "Como assim mano slk",
@@ -25,10 +25,14 @@ export default function ProjectPage() {
     finalEvaluation: 8,
   };
 
-  async function handleDelete(e) {
-    const id = e.target.value.id;
-    navigate("/", { replace: true });
-  }
+  useEffect(() => {
+    const userFromStorage = localStorage.getItem("user");
+    if (userFromStorage) {
+      setUser(JSON.parse(userFromStorage));
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
@@ -50,12 +54,7 @@ export default function ProjectPage() {
               ? `Nota do Projeto: ${project.finalEvaluation}/10`
               : "Nota do Projeto: N/A"}
           </Score>
-          <ButtonContainer>
-            <Button onClick={() => navigate(`/evaluate/${project.id}`)}>
-              Avaliar
-            </Button>
-            <Button onClick={handleDelete}>Excluir</Button>
-          </ButtonContainer>
+          {Evaluate(user, project)}
         </DetailsContainer>
       </Container>
     </>
