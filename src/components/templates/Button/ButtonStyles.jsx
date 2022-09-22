@@ -5,7 +5,7 @@ export const ProjectButton = styled.button`
   border-radius: 5px;
   background-color: #00aff0;
   height: 3rem;
-  width: 12rem;
+  width: 18rem;
   margin-top: 8rem;
   color: #ffffff;
   font-size: 20px;

@@ -52,6 +52,5 @@ export const ButtonContainer = styled.div`
 
   button {
     margin-top: 1rem;
-    width: 18rem;
   }
 `;
