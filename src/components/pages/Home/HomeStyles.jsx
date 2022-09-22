@@ -20,10 +20,6 @@ const Container = styled.div`
     align-self: flex-start;
     margin: 30px 0 30px 140px;
   }
-
-  .legend {
-    font-size: 40px;
-  }
 `;
 
 export { Container };

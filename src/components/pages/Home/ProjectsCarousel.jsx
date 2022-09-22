@@ -1,7 +1,15 @@
-export default function ProjectsCarousel({ project }) {
+import styled from "styled-components";
+
+export default function ProjectsCarousel({ project, onClick }) {
   return (
-    <div>
-      <img src={project.image} alt={`imagem de ${project.title}`} />
-    </div>
+    <Container onClick={onClick}>
+      <img src={project.projectPicture} alt={`imagem de ${project.name}`} />
+    </Container>
   );
 }
+
+const Container = styled.div`
+  :hover {
+    cursor: pointer;
+  }
+`;
