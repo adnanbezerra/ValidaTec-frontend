@@ -46,6 +46,7 @@ export default function MyProjectPage() {
     } else {
       navigate("/login", { replace: true });
     }
+    /* TODO: requisition to get projects */
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

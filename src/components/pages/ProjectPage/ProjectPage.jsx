@@ -30,6 +30,7 @@ export default function ProjectPage() {
     if (userFromStorage) {
       setUser(JSON.parse(userFromStorage));
     }
+    /* TODO: requisition to get project */
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -54,7 +55,7 @@ export default function ProjectPage() {
               ? `Nota do Projeto: ${project.finalEvaluation}/10`
               : "Nota do Projeto: N/A"}
           </Score>
-          {Evaluate(user, project)}
+          <Evaluate user={user} project={project} />
         </DetailsContainer>
       </Container>
     </>
