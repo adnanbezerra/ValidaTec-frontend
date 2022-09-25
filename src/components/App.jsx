@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import GlobalStyle from "../assets/styles/GlobalStyle";
 import SearchContext from "./contexts/SearchContext";
 import UserContext from "./contexts/UserContext";
+import EvaluatePage from "./pages/EvaluatePage/EvaluatePage";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import MyProjectPage from "./pages/MyProjectsPage/MyProjectsPage";
@@ -29,6 +30,7 @@ function App() {
             <Route path={"/register-project"} element={<CreateProject />} />
             <Route path={"/my-projects"} element={<MyProjectPage />} />
             <Route path={"/project/:id"} element={<ProjectPage />} />
+            <Route path={"/evaluate/:id"} element={<EvaluatePage />} />
           </Routes>
         </BrowserRouter>
       </UserContext.Provider>

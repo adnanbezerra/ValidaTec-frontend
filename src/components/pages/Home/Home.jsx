@@ -25,6 +25,7 @@ export default function Home() {
       setUser(JSON.parse(userFromStorage));
       navigate("/", { replace: true });
     }
+    /* TODO: requisition to get projects */
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
