@@ -17,24 +17,7 @@ import Button from "../../templates/Button/Button";
 
 export default function MyProjectPage() {
   const { user, setUser } = useContext(UserContext);
-  const [myProjects, setMyProjects] = useState([
-    {
-      id: 1,
-      name: "Como assim mano slk",
-      creators: "Adena, Lele",
-      description: "Esse é um projeot muito legal pq sim",
-      projectPicture:
-        "https://img.a.transfermarkt.technology/portrait/big/353108-1605189960.jpg?lm=1",
-    },
-    {
-      id: 2,
-      name: "Como assim mano slk",
-      creators: "Adena, Lele",
-      description: "Esse é um projeot muito legal pq sim",
-      projectPicture:
-        "https://img.a.transfermarkt.technology/portrait/big/353108-1605189960.jpg?lm=1",
-    },
-  ]);
+  const [myProjects, setMyProjects] = useState([]);
 
   const navigate = useNavigate();
 
@@ -46,7 +29,6 @@ export default function MyProjectPage() {
     } else {
       navigate("/login", { replace: true });
     }
-    /* TODO: requisition to get projects */
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

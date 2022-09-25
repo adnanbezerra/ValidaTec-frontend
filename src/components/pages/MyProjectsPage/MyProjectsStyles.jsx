@@ -38,7 +38,7 @@ export const ProjectContainer = styled.div`
   img {
     border-radius: 5px;
     width: 200px;
-    height: fit-content;
+    height: 250px;
   }
 `;
 

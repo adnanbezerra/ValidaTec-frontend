@@ -14,10 +14,15 @@ import {
   ProjectTitle,
 } from "../MyProjectsPage/MyProjectsStyles";
 import Button from "../../templates/Button/Button";
+import axios from "axios";
+import { BASE_URL } from "../../../mock/data";
 
 export default function Home() {
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
+  const [myProjects, setMyProjects] = useState([]);
+  const [images, setImages] = useState([]);
+  const img = [];
 
   useEffect(() => {
     const userFromStorage = localStorage.getItem("user");
@@ -25,56 +30,20 @@ export default function Home() {
       setUser(JSON.parse(userFromStorage));
       navigate("/", { replace: true });
     }
-    /* TODO: requisition to get projects */
+    const promise = axios.get(`${BASE_URL}/patents`);
+    promise.then((response) => setMyProjects(response.data));
+
+    const imgPromise = axios.get(`${BASE_URL}/patents`);
+    imgPromise.then((response) => {
+      for (let i = 0; i < 4; i++) {
+        const index = Math.floor(Math.random() * response.data.length);
+        img.push(response.data[index]);
+      }
+      setImages(img);
+    });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const [myProjects, setMyProjects] = useState([
-    {
-      id: 1,
-      name: "Como assim mano slk",
-      creators: "Adena, Lele",
-      description: "Esse é um projeot muito legal pq sim",
-      projectPicture:
-        "https://img.a.transfermarkt.technology/portrait/big/353108-1605189960.jpg?lm=1",
-    },
-    {
-      id: 2,
-      name: "Como assim mano slk",
-      creators: "Adena, Lele",
-      description: "Esse é um projeot muito legal pq sim",
-      projectPicture:
-        "https://img.a.transfermarkt.technology/portrait/big/353108-1605189960.jpg?lm=1",
-    },
-  ]);
-
-  const images = [
-    {
-      id: 3,
-      name: "Como assim mano slk",
-      creators: "Adena, Lele",
-      description: "Esse é um projeot muito legal pq sim",
-      projectPicture:
-        "https://epipoca.com.br/wp-content/uploads/2022/04/luffy-one-piece-1015.jpg",
-    },
-    {
-      id: 4,
-      name: "Como assim mano slk",
-      creators: "Adena, Lele",
-      description: "Esse é um projeot muito legal pq sim",
-      projectPicture:
-        "https://epipoca.com.br/wp-content/uploads/2022/04/luffy-one-piece-1015.jpg",
-    },
-    {
-      id: 5,
-      name: "Como assim mano slk",
-      creators: "Adena, Lele",
-      description: "Esse é um projeot muito legal pq sim",
-      projectPicture:
-        "https://epipoca.com.br/wp-content/uploads/2022/04/luffy-one-piece-1015.jpg",
-    },
-  ];
 
   function getMyProjects() {
     return myProjects.length === 0 ? (
@@ -118,13 +87,15 @@ export default function Home() {
           showStatus={false}
           showThumbs={false}
         >
-          {images.map((project, index) => (
-            <ProjectsCarousel
-              project={project}
-              key={index}
-              onClick={() => navigate(`/project/${project.id}`)}
-            />
-          ))}
+          {images.length > 0
+            ? images.map((project, index) => (
+                <ProjectsCarousel
+                  project={project}
+                  key={index}
+                  onClick={() => navigate(`/project/${project.id}`)}
+                />
+              ))
+            : ""}
         </Carousel>
         <h2>Projetos Recentes</h2>
         {getMyProjects()}
