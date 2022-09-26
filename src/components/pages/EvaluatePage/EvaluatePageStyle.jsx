@@ -4,6 +4,13 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 3rem;
+  }
 `;
 
 export const Title = styled.h1`
@@ -15,7 +22,7 @@ export const Question = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 2rem;
+  margin-top: 4rem;
 `;
 
 export const QuestionTitle = styled.h4`

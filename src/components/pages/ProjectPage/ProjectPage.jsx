@@ -18,6 +18,7 @@ import { useParams } from "react-router-dom";
 export default function ProjectPage() {
   const { user, setUser } = useContext(UserContext);
   const [project, setProject] = useState({});
+  const [evaluation, setEvaluation] = useState(0);
   const params = useParams();
 
   useEffect(() => {
@@ -27,6 +28,9 @@ export default function ProjectPage() {
     }
     const promise = axios.get(`${BASE_URL}/patent/${params.id}`);
     promise.then((response) => setProject(response.data));
+
+    const evaluation = axios.get(`${BASE_URL}/evaluation/${params.id}`);
+    evaluation.then((response) => setEvaluation(response.data.finalEvaluation));
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -47,11 +51,11 @@ export default function ProjectPage() {
             <span>Descrição:</span> {project.description}
           </Description>
           <Score>
-            {project.finalEvaluation
-              ? `Nota do Projeto: ${project.finalEvaluation}/10`
+            {evaluation
+              ? `Nota do Projeto: ${evaluation}/10`
               : "Nota do Projeto: N/A"}
           </Score>
-          <Evaluate user={user} project={project} />
+          <Evaluate project={project} />
         </DetailsContainer>
       </Container>
     </>

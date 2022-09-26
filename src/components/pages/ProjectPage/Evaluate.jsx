@@ -20,14 +20,14 @@ export default function Evaluate(props) {
     });
   }
 
-  /*   if (props.user.isAdmin === true) { */
-  return (
-    <ButtonContainer>
-      <Button onClick={() => navigate(`/evaluate/${props.project.id}`)}>
-        Avaliar
-      </Button>
-      <Button onClick={handleDelete}>Excluir</Button>
-    </ButtonContainer>
-  );
+  if (user.isAdmin === true) {
+    return (
+      <ButtonContainer>
+        <Button onClick={() => navigate(`/evaluate/${props.project.id}`)}>
+          Avaliar
+        </Button>
+        <Button onClick={handleDelete}>Excluir</Button>
+      </ButtonContainer>
+    );
+  }
 }
-/* } */

@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import UserContext from "../../contexts/UserContext";
 import {
   Container,
@@ -11,45 +11,73 @@ import {
 import Button from "../../templates/Button/Button";
 import Header from "../../templates/Header/Header";
 import { useState } from "react";
+import axios from "axios";
+import { BASE_URL, config } from "../../../mock/data";
 
-export default function EvaluatePage(props) {
+export default function EvaluatePage() {
   const navigate = useNavigate();
-  const { setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
+  const [project, setProject] = useState({});
+  const params = useParams();
   const [answer, setAnswer] = useState({
-    first: "",
-    second: "",
-    third: "",
-    fourth: "",
-    fifth: "",
-    sixth: "",
-    seventh: "",
-    eighth: "",
-    nineth: "",
-    tenth: "",
+    patentId: 0,
+    firstQuestion: 0,
+    secondQuestion: 0,
+    thirdQuestion: 0,
+    fourthQuestion: 0,
+    fifthQuestion: 0,
+    sixthQuestion: 0,
+    seventhQuestion: 0,
+    eighthQuestion: 0,
+    ninthQuestion: 0,
+    tenthQuestion: 0,
+    finalEvaluation: 0,
   });
 
-  const project = {
-    id: 3,
-    name: "Como assim mano slk",
-    creators: "Adena, Lele",
-    description:
-      "Esse é um projeot muito legal pq sim Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reprehenderit fugiat ducimus animi nulla doloribus tenetur, vel veniam possimus? Atque recusandae odio fuga fugiat reiciendis in voluptates illum ad aspernatur consequuntur!",
-    projectPicture:
-      "https://epipoca.com.br/wp-content/uploads/2022/04/luffy-one-piece-1015.jpg",
-    finalEvaluation: 8,
-  };
-
-  /* useEffect(() => {
+  useEffect(() => {
     const userFromStorage = localStorage.getItem("user");
     if (!userFromStorage) {
       navigate("/", { replace: true });
     }
     setUser(JSON.parse(userFromStorage));
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); */
+    if (user.isAdmin !== true) {
+      navigate("/", { replace: true });
+    }
 
-  async function handleEvaluation() {}
+    const promise = axios.get(`${BASE_URL}/patent/${params.id}`);
+    promise.then((response) => setProject(response.data));
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  async function handleEvaluation(e) {
+    e.preventDefault();
+    const final =
+      (Number(answer.firstQuestion) +
+        Number(answer.secondQuestion) +
+        Number(answer.thirdQuestion) +
+        Number(answer.fourthQuestion) +
+        Number(answer.fifthQuestion) +
+        Number(answer.sixthQuestion) +
+        Number(answer.seventhQuestion) +
+        Number(answer.eighthQuestion) +
+        Number(answer.ninthQuestion) +
+        Number(answer.tenthQuestion)) /
+      10;
+
+    setAnswer({ ...answer, finalEvaluation: final, patentId: project.id });
+    const promise = axios.post(
+      `${BASE_URL}/evaluation`,
+      answer,
+      config(user.token)
+    );
+    promise
+      .then(() => navigate(`/project/${project.id}`))
+      .catch((err) => {
+        console.error(err);
+      });
+  }
 
   return (
     <Container>
@@ -63,20 +91,29 @@ export default function EvaluatePage(props) {
           </QuestionTitle>
           <QuestionRadio
             onChange={(e) => {
-              setAnswer({ ...answer, first: e.target.value });
+              setAnswer({ ...answer, firstQuestion: e.target.value });
             }}
           >
+            <label htmlFor="1">1</label>
             <input type="radio" value="1" id="1" />
-            <label for="1">1</label>
-            <input type="radio" value="2" />
-            <input type="radio" value="3" />
-            <input type="radio" value="4" />
-            <input type="radio" value="5" />
-            <input type="radio" value="6" />
-            <input type="radio" value="7" />
-            <input type="radio" value="8" />
-            <input type="radio" value="9" />
-            <input type="radio" value="10" />
+            <label htmlFor="2">2</label>
+            <input type="radio" value="2" id="2" />
+            <label htmlFor="3">3</label>
+            <input type="radio" value="3" id="3" />
+            <label htmlFor="4">4</label>
+            <input type="radio" value="4" id="4" />
+            <label htmlFor="5">5</label>
+            <input type="radio" value="5" id="5" />
+            <label htmlFor="6">6</label>
+            <input type="radio" value="6" id="6" />
+            <label htmlFor="7">7</label>
+            <input type="radio" value="7" id="7" />
+            <label htmlFor="8">8</label>
+            <input type="radio" value="8" id="8" />
+            <label htmlFor="9">9</label>
+            <input type="radio" value="9" id="9" />
+            <label htmlFor="10">10</label>
+            <input type="radio" value="10" id="10" />
           </QuestionRadio>
         </Question>
         <Question>
@@ -85,19 +122,29 @@ export default function EvaluatePage(props) {
           </QuestionTitle>
           <QuestionRadio
             onChange={(e) => {
-              setAnswer({ ...answer, second: e.target.value });
+              setAnswer({ ...answer, secondQuestion: e.target.value });
             }}
           >
-            <input type="radio" value="1" />
-            <input type="radio" value="2" />
-            <input type="radio" value="3" />
-            <input type="radio" value="4" />
-            <input type="radio" value="5" />
-            <input type="radio" value="6" />
-            <input type="radio" value="7" />
-            <input type="radio" value="8" />
-            <input type="radio" value="9" />
-            <input type="radio" value="10" />
+            <label htmlFor="1">1</label>
+            <input type="radio" value="1" id="1" />
+            <label htmlFor="2">2</label>
+            <input type="radio" value="2" id="2" />
+            <label htmlFor="3">3</label>
+            <input type="radio" value="3" id="3" />
+            <label htmlFor="4">4</label>
+            <input type="radio" value="4" id="4" />
+            <label htmlFor="5">5</label>
+            <input type="radio" value="5" id="5" />
+            <label htmlFor="6">6</label>
+            <input type="radio" value="6" id="6" />
+            <label htmlFor="7">7</label>
+            <input type="radio" value="7" id="7" />
+            <label htmlFor="8">8</label>
+            <input type="radio" value="8" id="8" />
+            <label htmlFor="9">9</label>
+            <input type="radio" value="9" id="9" />
+            <label htmlFor="10">10</label>
+            <input type="radio" value="10" id="10" />
           </QuestionRadio>
         </Question>
         <Question>
@@ -106,19 +153,29 @@ export default function EvaluatePage(props) {
           </QuestionTitle>
           <QuestionRadio
             onChange={(e) => {
-              setAnswer({ ...answer, third: e.target.value });
+              setAnswer({ ...answer, thirdQuestion: e.target.value });
             }}
           >
-            <input type="radio" value="1" />
-            <input type="radio" value="2" />
-            <input type="radio" value="3" />
-            <input type="radio" value="4" />
-            <input type="radio" value="5" />
-            <input type="radio" value="6" />
-            <input type="radio" value="7" />
-            <input type="radio" value="8" />
-            <input type="radio" value="9" />
-            <input type="radio" value="10" />
+            <label htmlFor="1">1</label>
+            <input type="radio" value="1" id="1" />
+            <label htmlFor="2">2</label>
+            <input type="radio" value="2" id="2" />
+            <label htmlFor="3">3</label>
+            <input type="radio" value="3" id="3" />
+            <label htmlFor="4">4</label>
+            <input type="radio" value="4" id="4" />
+            <label htmlFor="5">5</label>
+            <input type="radio" value="5" id="5" />
+            <label htmlFor="6">6</label>
+            <input type="radio" value="6" id="6" />
+            <label htmlFor="7">7</label>
+            <input type="radio" value="7" id="7" />
+            <label htmlFor="8">8</label>
+            <input type="radio" value="8" id="8" />
+            <label htmlFor="9">9</label>
+            <input type="radio" value="9" id="9" />
+            <label htmlFor="10">10</label>
+            <input type="radio" value="10" id="10" />
           </QuestionRadio>
         </Question>
         <Question>
@@ -128,19 +185,29 @@ export default function EvaluatePage(props) {
           </QuestionTitle>
           <QuestionRadio
             onChange={(e) => {
-              setAnswer({ ...answer, fourth: e.target.value });
+              setAnswer({ ...answer, fourthQuestion: e.target.value });
             }}
           >
-            <input type="radio" value="1" />
-            <input type="radio" value="2" />
-            <input type="radio" value="3" />
-            <input type="radio" value="4" />
-            <input type="radio" value="5" />
-            <input type="radio" value="6" />
-            <input type="radio" value="7" />
-            <input type="radio" value="8" />
-            <input type="radio" value="9" />
-            <input type="radio" value="10" />
+            <label htmlFor="1">1</label>
+            <input type="radio" value="1" id="1" />
+            <label htmlFor="2">2</label>
+            <input type="radio" value="2" id="2" />
+            <label htmlFor="3">3</label>
+            <input type="radio" value="3" id="3" />
+            <label htmlFor="4">4</label>
+            <input type="radio" value="4" id="4" />
+            <label htmlFor="5">5</label>
+            <input type="radio" value="5" id="5" />
+            <label htmlFor="6">6</label>
+            <input type="radio" value="6" id="6" />
+            <label htmlFor="7">7</label>
+            <input type="radio" value="7" id="7" />
+            <label htmlFor="8">8</label>
+            <input type="radio" value="8" id="8" />
+            <label htmlFor="9">9</label>
+            <input type="radio" value="9" id="9" />
+            <label htmlFor="10">10</label>
+            <input type="radio" value="10" id="10" />
           </QuestionRadio>
         </Question>
         <Question>
@@ -149,19 +216,29 @@ export default function EvaluatePage(props) {
           </QuestionTitle>
           <QuestionRadio
             onChange={(e) => {
-              setAnswer({ ...answer, fifth: e.target.value });
+              setAnswer({ ...answer, fifthQuestion: e.target.value });
             }}
           >
-            <input type="radio" value="1" />
-            <input type="radio" value="2" />
-            <input type="radio" value="3" />
-            <input type="radio" value="4" />
-            <input type="radio" value="5" />
-            <input type="radio" value="6" />
-            <input type="radio" value="7" />
-            <input type="radio" value="8" />
-            <input type="radio" value="9" />
-            <input type="radio" value="10" />
+            <label htmlFor="1">1</label>
+            <input type="radio" value="1" id="1" />
+            <label htmlFor="2">2</label>
+            <input type="radio" value="2" id="2" />
+            <label htmlFor="3">3</label>
+            <input type="radio" value="3" id="3" />
+            <label htmlFor="4">4</label>
+            <input type="radio" value="4" id="4" />
+            <label htmlFor="5">5</label>
+            <input type="radio" value="5" id="5" />
+            <label htmlFor="6">6</label>
+            <input type="radio" value="6" id="6" />
+            <label htmlFor="7">7</label>
+            <input type="radio" value="7" id="7" />
+            <label htmlFor="8">8</label>
+            <input type="radio" value="8" id="8" />
+            <label htmlFor="9">9</label>
+            <input type="radio" value="9" id="9" />
+            <label htmlFor="10">10</label>
+            <input type="radio" value="10" id="10" />
           </QuestionRadio>
         </Question>
         <Question>
@@ -171,19 +248,29 @@ export default function EvaluatePage(props) {
           </QuestionTitle>
           <QuestionRadio
             onChange={(e) => {
-              setAnswer({ ...answer, sixth: e.target.value });
+              setAnswer({ ...answer, sixthQuestion: e.target.value });
             }}
           >
-            <input type="radio" value="1" />
-            <input type="radio" value="2" />
-            <input type="radio" value="3" />
-            <input type="radio" value="4" />
-            <input type="radio" value="5" />
-            <input type="radio" value="6" />
-            <input type="radio" value="7" />
-            <input type="radio" value="8" />
-            <input type="radio" value="9" />
-            <input type="radio" value="10" />
+            <label htmlFor="1">1</label>
+            <input type="radio" value="1" id="1" />
+            <label htmlFor="2">2</label>
+            <input type="radio" value="2" id="2" />
+            <label htmlFor="3">3</label>
+            <input type="radio" value="3" id="3" />
+            <label htmlFor="4">4</label>
+            <input type="radio" value="4" id="4" />
+            <label htmlFor="5">5</label>
+            <input type="radio" value="5" id="5" />
+            <label htmlFor="6">6</label>
+            <input type="radio" value="6" id="6" />
+            <label htmlFor="7">7</label>
+            <input type="radio" value="7" id="7" />
+            <label htmlFor="8">8</label>
+            <input type="radio" value="8" id="8" />
+            <label htmlFor="9">9</label>
+            <input type="radio" value="9" id="9" />
+            <label htmlFor="10">10</label>
+            <input type="radio" value="10" id="10" />
           </QuestionRadio>
         </Question>
         <Question>
@@ -193,19 +280,29 @@ export default function EvaluatePage(props) {
           </QuestionTitle>
           <QuestionRadio
             onChange={(e) => {
-              setAnswer({ ...answer, seventh: e.target.value });
+              setAnswer({ ...answer, seventhQuestion: e.target.value });
             }}
           >
-            <input type="radio" value="1" />
-            <input type="radio" value="2" />
-            <input type="radio" value="3" />
-            <input type="radio" value="4" />
-            <input type="radio" value="5" />
-            <input type="radio" value="6" />
-            <input type="radio" value="7" />
-            <input type="radio" value="8" />
-            <input type="radio" value="9" />
-            <input type="radio" value="10" />
+            <label htmlFor="1">1</label>
+            <input type="radio" value="1" id="1" />
+            <label htmlFor="2">2</label>
+            <input type="radio" value="2" id="2" />
+            <label htmlFor="3">3</label>
+            <input type="radio" value="3" id="3" />
+            <label htmlFor="4">4</label>
+            <input type="radio" value="4" id="4" />
+            <label htmlFor="5">5</label>
+            <input type="radio" value="5" id="5" />
+            <label htmlFor="6">6</label>
+            <input type="radio" value="6" id="6" />
+            <label htmlFor="7">7</label>
+            <input type="radio" value="7" id="7" />
+            <label htmlFor="8">8</label>
+            <input type="radio" value="8" id="8" />
+            <label htmlFor="9">9</label>
+            <input type="radio" value="9" id="9" />
+            <label htmlFor="10">10</label>
+            <input type="radio" value="10" id="10" />
           </QuestionRadio>
         </Question>
         <Question>
@@ -215,19 +312,29 @@ export default function EvaluatePage(props) {
           </QuestionTitle>
           <QuestionRadio
             onChange={(e) => {
-              setAnswer({ ...answer, eighth: e.target.value });
+              setAnswer({ ...answer, eighthQuestion: e.target.value });
             }}
           >
-            <input type="radio" value="1" />
-            <input type="radio" value="2" />
-            <input type="radio" value="3" />
-            <input type="radio" value="4" />
-            <input type="radio" value="5" />
-            <input type="radio" value="6" />
-            <input type="radio" value="7" />
-            <input type="radio" value="8" />
-            <input type="radio" value="9" />
-            <input type="radio" value="10" />
+            <label htmlFor="1">1</label>
+            <input type="radio" value="1" id="1" />
+            <label htmlFor="2">2</label>
+            <input type="radio" value="2" id="2" />
+            <label htmlFor="3">3</label>
+            <input type="radio" value="3" id="3" />
+            <label htmlFor="4">4</label>
+            <input type="radio" value="4" id="4" />
+            <label htmlFor="5">5</label>
+            <input type="radio" value="5" id="5" />
+            <label htmlFor="6">6</label>
+            <input type="radio" value="6" id="6" />
+            <label htmlFor="7">7</label>
+            <input type="radio" value="7" id="7" />
+            <label htmlFor="8">8</label>
+            <input type="radio" value="8" id="8" />
+            <label htmlFor="9">9</label>
+            <input type="radio" value="9" id="9" />
+            <label htmlFor="10">10</label>
+            <input type="radio" value="10" id="10" />
           </QuestionRadio>
         </Question>
         <Question>
@@ -238,19 +345,29 @@ export default function EvaluatePage(props) {
           </QuestionTitle>
           <QuestionRadio
             onChange={(e) => {
-              setAnswer({ ...answer, nineth: e.target.value });
+              setAnswer({ ...answer, ninthQuestion: e.target.value });
             }}
           >
-            <input type="radio" value="1" />
-            <input type="radio" value="2" />
-            <input type="radio" value="3" />
-            <input type="radio" value="4" />
-            <input type="radio" value="5" />
-            <input type="radio" value="6" />
-            <input type="radio" value="7" />
-            <input type="radio" value="8" />
-            <input type="radio" value="9" />
-            <input type="radio" value="10" />
+            <label htmlFor="1">1</label>
+            <input type="radio" value="1" id="1" />
+            <label htmlFor="2">2</label>
+            <input type="radio" value="2" id="2" />
+            <label htmlFor="3">3</label>
+            <input type="radio" value="3" id="3" />
+            <label htmlFor="4">4</label>
+            <input type="radio" value="4" id="4" />
+            <label htmlFor="5">5</label>
+            <input type="radio" value="5" id="5" />
+            <label htmlFor="6">6</label>
+            <input type="radio" value="6" id="6" />
+            <label htmlFor="7">7</label>
+            <input type="radio" value="7" id="7" />
+            <label htmlFor="8">8</label>
+            <input type="radio" value="8" id="8" />
+            <label htmlFor="9">9</label>
+            <input type="radio" value="9" id="9" />
+            <label htmlFor="10">10</label>
+            <input type="radio" value="10" id="10" />
           </QuestionRadio>
         </Question>
         <Question>
@@ -260,19 +377,29 @@ export default function EvaluatePage(props) {
           </QuestionTitle>
           <QuestionRadio
             onChange={(e) => {
-              setAnswer({ ...answer, tenth: e.target.value });
+              setAnswer({ ...answer, tenthQuestion: e.target.value });
             }}
           >
-            <input type="radio" value="1" />
-            <input type="radio" value="2" />
-            <input type="radio" value="3" />
-            <input type="radio" value="4" />
-            <input type="radio" value="5" />
-            <input type="radio" value="6" />
-            <input type="radio" value="7" />
-            <input type="radio" value="8" />
-            <input type="radio" value="9" />
-            <input type="radio" value="10" />
+            <label htmlFor="1">1</label>
+            <input type="radio" value="1" id="1" />
+            <label htmlFor="2">2</label>
+            <input type="radio" value="2" id="2" />
+            <label htmlFor="3">3</label>
+            <input type="radio" value="3" id="3" />
+            <label htmlFor="4">4</label>
+            <input type="radio" value="4" id="4" />
+            <label htmlFor="5">5</label>
+            <input type="radio" value="5" id="5" />
+            <label htmlFor="6">6</label>
+            <input type="radio" value="6" id="6" />
+            <label htmlFor="7">7</label>
+            <input type="radio" value="7" id="7" />
+            <label htmlFor="8">8</label>
+            <input type="radio" value="8" id="8" />
+            <label htmlFor="9">9</label>
+            <input type="radio" value="9" id="9" />
+            <label htmlFor="10">10</label>
+            <input type="radio" value="10" id="10" />
           </QuestionRadio>
         </Question>
         <Button>Enviar</Button>
