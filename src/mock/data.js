@@ -1,13 +1,11 @@
-const BASE_URL = 'http://localhost:5000'
+const BASE_URL = "http://localhost:5000";
 
-function config(token, refresh) {
-    return {
-        headers: {
-            "Authorization": `Bearer ${token}`,
-            "Refresh": `${refresh}`,
-            "Access-Control-Allow-Origin": '*'
-        }
-    }
+function config(token) {
+  return {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
 }
 
-export { BASE_URL, config }
+export { BASE_URL, config };

@@ -79,24 +79,26 @@ export default function Home() {
     <>
       <Header />
       <Container>
-        <Carousel
-          centerMode
-          infiniteLoop
-          autoPlay
-          interval={5000}
-          showStatus={false}
-          showThumbs={false}
-        >
-          {images.length > 0
-            ? images.map((project, index) => (
-                <ProjectsCarousel
-                  project={project}
-                  key={index}
-                  onClick={() => navigate(`/project/${project.id}`)}
-                />
-              ))
-            : ""}
-        </Carousel>
+        {images.length > 0 ? (
+          <Carousel
+            centerMode
+            infiniteLoop
+            autoPlay
+            interval={5000}
+            showStatus={false}
+            showThumbs={false}
+          >
+            {images.map((project, index) => (
+              <ProjectsCarousel
+                project={project}
+                key={index}
+                onClick={() => navigate(`/project/${project.id}`)}
+              />
+            ))}
+          </Carousel>
+        ) : (
+          ""
+        )}
         <h2>Projetos Recentes</h2>
         {getMyProjects()}
       </Container>
