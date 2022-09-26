@@ -25,7 +25,8 @@ export default function MyProjectPage() {
     const userFromStorage = localStorage.getItem("user");
     if (userFromStorage) {
       setUser(JSON.parse(userFromStorage));
-      navigate("/my-projects", { replace: true });
+      getPatents();
+      console.log(myProjects);
     } else {
       navigate("/login", { replace: true });
     }
@@ -33,18 +34,16 @@ export default function MyProjectPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
+  async function getPatents() {
     axios
-      .get(`${BASE_URL}/patents/${user.name}`)
+      .get(`${BASE_URL}/patents/user/${user.id}`)
       .then((response) => {
         setMyProjects(response.data);
       })
       .catch((error) => {
         console.error(error);
       });
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  };
 
   function getMyProjects() {
     return myProjects.length === 0 ? (
