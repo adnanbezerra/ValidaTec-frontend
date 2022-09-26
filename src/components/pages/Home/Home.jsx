@@ -35,7 +35,8 @@ export default function Home() {
 
     const imgPromise = axios.get(`${BASE_URL}/patents`);
     imgPromise.then((response) => {
-      for (let i = 0; i < 4; i++) {
+      const length = Math.ceil(myProjects.length / 3);
+      for (let i = 0; i < length; i++) {
         const index = Math.floor(Math.random() * response.data.length);
         img.push(response.data[index]);
       }
